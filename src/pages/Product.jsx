@@ -1,10 +1,14 @@
 // The exported code uses Tailwind CSS. Install Tailwind CSS in your dev environment to ensure all styles work.
 
+import { link } from 'framer-motion/client';
 import React, { useState } from 'react';
-
+import { Link } from 'react-router';
+import { useProduct } from "../context/ProductContext";
+import '../css/Product.css'
 const Product = () => {
 
   const [hoveredProduct, setHoveredProduct] = useState ([]);
+  const { setSelectedProduct } = useProduct();
 
   const products = [
     {
@@ -64,9 +68,10 @@ const Product = () => {
       image: 'https://readdy.ai/api/search-image?query=collection%20of%20sleek%20lip%20balm%20tubes%20arranged%20on%20clean%20white%20background%20with%20modern%20minimalist%20design%20and%20professional%20cosmetic%20photography%20featuring%20soft%20studio%20lighting&width=320&height=320&seq=prod8&orientation=squarish'
     }
   ];
+  
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="product-container  bg-white">
      
  
       {/* Hero Section */}
@@ -89,11 +94,13 @@ const Product = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-8">
             {products.map((product) => (
-              <div
+              <Link
+                to={`/product/productdetail/${product.id}`}
                 key={product.id}
                 className="group relative cursor-pointer"
                 onMouseEnter={() => setHoveredProduct(product.id)}
                 onMouseLeave={() => setHoveredProduct(null)}
+                onClick={() => setSelectedProduct(product)}
               >
                 {/* Product Image Container */}
                 <div className="relative aspect-square bg-gray-50 rounded-sm overflow-hidden mb-4 transition-transform duration-300 group-hover:scale-105">
@@ -130,7 +137,7 @@ const Product = () => {
                 <button className="w-full mt-3 bg-gray-900 text-white py-2 text-sm font-medium tracking-wide hover:bg-gray-800 transition-colors lg:hidden !rounded-button whitespace-nowrap">
                   Quick View
                 </button>
-              </div>
+              </Link>
             ))}
           </div>
 

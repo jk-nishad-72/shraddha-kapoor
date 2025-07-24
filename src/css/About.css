@@ -1,0 +1,22 @@
+
+
+.about-container{
+    margin-top: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height:calc(100vh - 100px) ; */
+    width: 100%;
+    background-color: #f0f0f0;
+}
+
+.about-container h1{
+    font-size: 4rem;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
