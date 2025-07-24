@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router';
 import { useProduct } from "../context/ProductContext";
 import '../css/Product.css'
+import Hero from '../components/Hero'
 const Product = () => {
 
   const [hoveredProduct, setHoveredProduct] = useState ([]);
@@ -72,6 +73,9 @@ const Product = () => {
 
   return (
     <div className="product-container  bg-white">
+
+   < Hero />
+
      
  
       {/* Hero Section */}

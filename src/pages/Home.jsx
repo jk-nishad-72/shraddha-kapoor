@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
 import Product from '../pages/Product'
 import Footer from '../components/Footer'
-// import HeroCarousel from '../components/HeroCaroursel'
+import HeroCarousel from '../components/HeroCaroursel'
 
 
 const Home = () => {
@@ -12,18 +12,9 @@ const Home = () => {
 
 
     <div>
-
-
-        {/* <HeroCarousel /> */}
-            
-       < Hero />
+       <HeroCarousel />
        <Product/>
-      
-
        <Footer/>
-       
-
-
     </div>
     
     
