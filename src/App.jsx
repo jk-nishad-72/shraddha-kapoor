@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import Home from './pages/Home'
 import Mainroutes from './routes/Mainroutes'
 import Navbar from './components/Navbar'
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react'
+
 
 
 
@@ -18,6 +20,7 @@ const App = () => {
     <>
     <Navbar/>
     <Mainroutes/>
+    
     {/* < Home /> */}
 </>
 

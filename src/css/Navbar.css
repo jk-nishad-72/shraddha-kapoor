@@ -19,6 +19,38 @@
     display: none;
 }
 
+.nav-links{
+    position: relative;
+
+}
+.nav-links::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #222;
+    
+}
+.nav-links:hover::after{
+    animation: lineanime 1s ease-in-out;
+}
+@keyframes lineanime {
+    0%{
+        width: 0%;
+        left: 0;
+    }
+     50%{
+        width: 100%;
+        left: 0;
+    }
+    100%{
+        width: 0%;
+        left: 100%;
+    }
+}
+
 @media (max-width: 768px) {
 
     .nav{

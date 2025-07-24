@@ -5,6 +5,7 @@ import Account from '../pages/Account'
 import Product from '../pages/Product'
 import About from '../pages/About'
 import ProductDetail from '../pages/ProductDetail'
+import Signup from '../components/Signup'
 
 const Mainroutes = () => {
   return (
@@ -15,6 +16,7 @@ const Mainroutes = () => {
         <Route path='/product' element={<Product/>}/>
         <Route path='/product/productdetail/:id' element={<ProductDetail/>}/>
         <Route path='/about' element={<About/>}/>
+        <Route path='/signup' element={<Signup/>}/>
       </Routes>
     </div>
   )
