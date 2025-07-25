@@ -5,6 +5,7 @@ import Product from '../pages/Product'
 import Footer from '../components/Footer'
 import HeroCarousel from '../components/HeroCaroursel' // Typo: should be 'HeroCarousel' not 'HeroCaroursel'
 import Faq from '../components/Faq'
+import Products from '../components/Products'
 
 
 const Home = () => {
