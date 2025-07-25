@@ -5,11 +5,16 @@
     <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>New Arrivals | Brand New Collections – PALMONAS</title>
-    <link rel="icon" type="images/png" href="./public/images/fevicon.png" />
+    <!-- 
+      The type attribute for favicon should be "image/png" not "images/png".
+      The path should be relative to the public directory in Vite, so use "/images/fevicon.png" 
+      instead of "./public/images/fevicon.png".
+    -->
+    <link rel="icon" type="image/png" href="/images/fevicon.png" />
     <link
-    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
-    rel="stylesheet"
-/>
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div id="root"></div>

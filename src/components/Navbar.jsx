@@ -4,6 +4,7 @@ import { useGSAP } from '@gsap/react';
 import '../css/Navbar.css';
 import { Link } from 'react-router-dom';
 
+// No error in navLinks array structure
 const navLinks = [
   ['Home', '/'],
   ['Best Seller', '/product'],
@@ -18,11 +19,16 @@ const navLinks = [
 ];
 
 const Navbar = () => {
-  gsap.registerPlugin(useGSAP);
+  // ERROR: gsap.registerPlugin(useGSAP) is incorrect.
+  // useGSAP is a React hook, not a GSAP plugin.
+  // The correct usage is to just call useGSAP inside the component.
+  // gsap.registerPlugin is for GSAP plugins like ScrollTrigger, not for hooks.
+  // So, remove gsap.registerPlugin(useGSAP);
 
-  let tl = gsap.timeline();
+  // let tl = gsap.timeline(); // This is fine, but should be inside the useGSAP callback for best practice.
 
   useGSAP(() => {
+    const tl = gsap.timeline();
     tl.from('.logo', {
       y: -50,
       opacity: 0,
@@ -65,16 +71,14 @@ const Navbar = () => {
     <>
       {/* Sidebar for mobile */}
       <div
-        className={`fixed inset-0 z-[100] bg-black bg-opacity-40 transition-opacity duration-300 ${
-          sidebarOpen ? 'block md:hidden' : 'hidden'
-        }`}
+        className={`fixed inset-0 z-[100] bg-black bg-opacity-40 transition-opacity duration-300 ${sidebarOpen ? 'block md:hidden' : 'hidden'
+          }`}
         onClick={() => setSidebarOpen(false)}
         style={{}}
       ></div>
       <aside
-        className={`fixed top-0 left-0 h-full w-64 bg-white z-[101] shadow-lg transform transition-transform duration-300 ${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } md:hidden`}
+        className={`fixed top-0 left-0 h-full w-64 bg-white z-[101] shadow-lg transform transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+          } md:hidden`}
         style={{ willChange: 'transform' }}
       >
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
@@ -204,16 +208,11 @@ const Navbar = () => {
             <div className="flex justify-center items-center gap-8 px-6 py-3">
               {navLinks.map(([item, path], index) => (
                 <Link
-                 
                   key={index}
                   to={path}
-                  className={`nav-links text-sm hover:text-gray-900 cursor-pointer whitespace-nowrap ${
-                    typeof item === 'object' && item[1]
-                      ? 'px-2 py-0.5 rounded bg-yellow-100 text-yellow-800'
-                      : 'text-gray-700'
-                  }`}
+                  className={`nav-links text-sm hover:text-gray-900 cursor-pointer whitespace-nowrap text-gray-700`}
                 >
-                  {typeof item === 'string' ? item : item[0]}
+                  {item}
                 </Link>
               ))}
             </div>

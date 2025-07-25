@@ -1,3 +1,5 @@
+// Error review and comments added inline
+
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -30,6 +32,11 @@ const HeroCarousel = () => {
   const { slides, mobils } = useSlides();
   const deviceType = useDeviceType();
 
+  // Defensive: slides and mobils should be arrays
+  // If useSlides() returns undefined, this will error
+  // Could add: const slidesArr = Array.isArray(slides) ? slides : [];
+  // But assuming context is always correct for now
+
   // For desktop/laptop/tablet (slides)
   const [current, setCurrent] = useState(0);
   const timeoutRef = useRef(null);
@@ -40,36 +47,42 @@ const HeroCarousel = () => {
 
   // Desktop/Laptop/Tablet: slides auto-advance
   useEffect(() => {
-    if (deviceType === 'desktop' || deviceType === 'tablet') {
+    // Error: If slides is undefined or empty, slides.length will error
+    if ((deviceType === 'desktop' || deviceType === 'tablet') && slides && slides.length > 0) {
       timeoutRef.current = setTimeout(() => {
         setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
       }, 5000);
       return () => clearTimeout(timeoutRef.current);
     }
-  }, [current, deviceType, slides.length]);
+  }, [current, deviceType, slides?.length]);
 
   // Mobile: mobils auto-advance
   useEffect(() => {
-    if (deviceType === 'mobile') {
+    // Error: If mobils is undefined or empty, mobils.length will error
+    if (deviceType === 'mobile' && mobils && mobils.length > 0) {
       timeoutMobileRef.current = setTimeout(() => {
         setCurrentMobile((prev) => (prev === mobils.length - 1 ? 0 : prev + 1));
       }, 4000);
       return () => clearTimeout(timeoutMobileRef.current);
     }
-  }, [currentMobile, deviceType, mobils.length]);
+  }, [currentMobile, deviceType, mobils?.length]);
 
   // Navigation handlers
   const nextSlide = () => {
+    if (!slides || slides.length === 0) return;
     setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
   };
   const prevSlide = () => {
+    if (!slides || slides.length === 0) return;
     setCurrent((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
   };
 
   const nextMobileSlide = () => {
+    if (!mobils || mobils.length === 0) return;
     setCurrentMobile((prev) => (prev === mobils.length - 1 ? 0 : prev + 1));
   };
   const prevMobileSlide = () => {
+    if (!mobils || mobils.length === 0) return;
     setCurrentMobile((prev) => (prev === 0 ? mobils.length - 1 : prev - 1));
   };
 
@@ -83,7 +96,7 @@ const HeroCarousel = () => {
       }`}
     >
       <AnimatePresence>
-        {slides.map((slide, index) =>
+        {(slides || []).map((slide, index) =>
           index === current ? (
             <motion.div
               key={index}
@@ -116,7 +129,7 @@ const HeroCarousel = () => {
       </button>
       {/* Dot Indicators */}
       <div className="absolute bottom-6 w-full flex justify-center items-center gap-2">
-        {slides.map((_, index) => (
+        {(slides || []).map((_, index) => (
           <div
             key={index}
             onClick={() => setCurrent(index)}
@@ -163,7 +176,7 @@ const HeroCarousel = () => {
       }}
     >
       <AnimatePresence>
-        {mobils.map((mobil, index) =>
+        {(mobils || []).map((mobil, index) =>
           index === currentMobile ? (
             <motion.div
               key={index}
@@ -210,7 +223,7 @@ const HeroCarousel = () => {
       </button>
       {/* Dot Indicators */}
       <div className="absolute bottom-3 w-full flex justify-center items-center gap-2 z-50">
-        {mobils.map((_, index) => (
+        {(mobils || []).map((_, index) => (
           <div
             key={index}
             onClick={() => setCurrentMobile(index)}
@@ -233,3 +246,8 @@ const HeroCarousel = () => {
 };
 
 export default HeroCarousel;
+
+// Error summary:
+// 1. If slides or mobils is undefined, code will throw (fixed by fallback to [] in map and checks in handlers).
+// 2. If slides or mobils is empty, carousel will not show anything (expected).
+// 3. No other major errors found. Typo in file name: should be HeroCarousel.jsx, not HeroCaroursel.jsx.

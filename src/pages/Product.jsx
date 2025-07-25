@@ -1,14 +1,21 @@
 // The exported code uses Tailwind CSS. Install Tailwind CSS in your dev environment to ensure all styles work.
 
-import { link } from 'framer-motion/client';
+// ERROR REVIEW AND FIXES:
+// 1. `import { link } from 'framer-motion/client';` is unused and unnecessary. Remove it.
+// 2. `import { Link } from 'react-router';` is incorrect. It should be `import { Link } from 'react-router-dom';`
+// 3. `const [hoveredProduct, setHoveredProduct] = useState ([]);` should be `useState(null)` (not an array, but a single hovered product id or null).
+// 4. The rest of the code is valid React and Tailwind CSS, assuming context and CSS exist.
+
 import React, { useState } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { useProduct } from "../context/ProductContext";
 import '../css/Product.css'
 import Hero from '../components/Hero'
+
 const Product = () => {
 
-  const [hoveredProduct, setHoveredProduct] = useState ([]);
+  // Fix: hoveredProduct should be null or a product id, not an array
+  const [hoveredProduct, setHoveredProduct] = useState(null);
   const { setSelectedProduct } = useProduct();
 
   const products = [
@@ -74,10 +81,8 @@ const Product = () => {
   return (
     <div className="product-container  bg-white">
 
-   < Hero />
+      <Hero />
 
-     
- 
       {/* Hero Section */}
       <section className="py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -154,9 +159,7 @@ const Product = () => {
         </div>
       </section>
 
-
       {/* Newsletter Section */}
-      
       <section className="bg-gray-50 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto">
@@ -180,7 +183,6 @@ const Product = () => {
         </div>
       </section>
 
-  
     </div>
   );
 };
