@@ -55,7 +55,8 @@
 
     .nav{
         width: 100%;
-        position: relative;
+        position: fixed;
+
     }
     .n-small{
         width: 100%;
